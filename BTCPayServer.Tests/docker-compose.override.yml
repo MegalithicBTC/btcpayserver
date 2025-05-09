@@ -1,0 +1,7 @@
+services:
+  dev:
+    environment:
+      BTCPAY_HOST: https://btc-pay-dev.megalith-node.com
+    ports:
+      - "80:5000"      # HTTP  → Kestrel HTTP
+      - "443:5001"     # HTTPS → Kestrel HTTPS
