@@ -25,6 +25,7 @@ dotnet build -c Debug
 # 3. Run BTCPay Server (Bitcoin launch profile)
 # ----------------------------------------------------------------------
 cd ../../btcpayserver
-dotnet run \
-  --project BTCPayServer/BTCPayServer.csproj \
-  --launch-profile Bitcoin
+# dotnet run \
+#   --project BTCPayServer/BTCPayServer.csproj \
+#   --launch-profile Bitcoin
+dotnet run --project BTCPayServer/BTCPayServer.csproj --launch-profile Bitcoin-Mainnet-Local-Dev
