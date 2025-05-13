@@ -48,7 +48,15 @@ echo "📄  Using NBX cookie: $BTCPAY_BTCEXPLORERCOOKIEFILE"
 ###############################################################################
 # 3.  Launch BTCPayServer with Ubuntu-Dev profile
 ###############################################################################
-echo "🚀  Starting BTCPay with profile: Bitcoin-Mainnet-Ubuntu-Dev"
+
+# echo "🚀  Starting BTCPay with profile: Bitcoin-Mainnet-Ubuntu-Dev"
 exec dotnet run \
      --project "${repo_root}/btcpayserver/BTCPayServer/BTCPayServer.csproj" \
      --launch-profile Bitcoin-Mainnet-Ubuntu-Dev
+
+# echo "🔨  Building BTCPayServer …"
+# dotnet build -c Debug "${repo_root}/btcpayserver/BTCPayServer"
+
+# dll_path="${repo_root}/btcpayserver/BTCPayServer/bin/Debug/net8.0/BTCPayServer.dll"
+# echo "🚀  Starting BTCPayServer via dotnet exec"
+# exec dotnet exec "$dll_path" --launch-profile Bitcoin-Mainnet-Ubuntu-Dev
