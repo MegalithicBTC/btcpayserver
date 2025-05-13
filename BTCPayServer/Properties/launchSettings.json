@@ -13,7 +13,7 @@
 
  
         "BTCPAY_BTCEXPLORERURL":          "http://localhost:32838/",
-        "BTCPAY_BTCLIGHTNING":            "type=clightning;server=http://localhost:3010/",
+        "BTCPAY_BTCLIGHTNING":            "type=clightning;server=unix:///mypool/workspace/btcpay/btcpayserver-docker/data/clightning_bitcoin_datadir/lightning-rpc",
 
 
         "BTCPAY_POSTGRES":                "User ID=postgres;Include Error Detail=true;Host=localhost;Port=5432;Database=btcpayservermainnet",
