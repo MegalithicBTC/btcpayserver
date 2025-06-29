@@ -10,7 +10,7 @@ PROFILE="Bitcoin-Mainnet-Local-Dev"
 # relative paths (from repo root)
 PLUGIN_REL_PATH="btcpayserver-plugin-template/BTCPayServer.Plugins.LSPS1"
 BTCPAY_CSPROJ_REL_PATH="btcpayserver/BTCPayServer/BTCPayServer.csproj"
-NBX_COOKIE_REL_PATH="btcpayserver-docker/data/nbxplorer_datadir/.cookie"
+NBX_COOKIE_REL_PATH="btcpayserver-docker/data/nbxplorer_datadir/Main/.cookie"
 
 ###############################################################################
 # 0.  Kill anything still bound to $PORT (gracefully, then force if needed)
