@@ -12,7 +12,7 @@
         "BTCPAY_BIND": "0.0.0.0:14142",
         "BTCPAY_VERBOSE": "true",
         "BTCPAY_BTCEXPLORERURL": "http://localhost:32838/",
-        "BTCPAY_BTCLIGHTNING": "type=clightning;server=/mypool/workspace/btcpay/btcpayserver-docker/data/clightning_bitcoin_datadir/lightning-rpc;version=3.8",
+        "BTCPAY_BTCLIGHTNING": "type=clightning;server=unix:///mypool/workspace/btcpay/btcpayserver-docker/data/clightning_bitcoin_datadir/lightning-rpc;version=3.8",
         "BTCPAY_POSTGRES": "User ID=postgres;Include Error Detail=true;Host=localhost;Port=5432;Database=btcpayservermainnet",
         "BTCPAY_EXPLORERPOSTGRES": "User ID=postgres;Include Error Detail=true;Host=localhost;Port=5432;Database=nbxplorermainnet",
         "BTCPAY_ALLOW-ADMIN-REGISTRATION": "true",
