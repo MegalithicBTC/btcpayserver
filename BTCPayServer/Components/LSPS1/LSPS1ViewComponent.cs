@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BTCPayServer.Lightning;
 
 namespace BTCPayServer.Components.LSPS1
 {
@@ -17,11 +18,16 @@ namespace BTCPayServer.Components.LSPS1
         {
             // Print to CLI console
             Console.WriteLine("====================================");
-            Console.WriteLine("HELLO WORLD FROM LSPS1");
+            Console.WriteLine("HELLO WORLD FROM LSPS1 COMPONENT");
             Console.WriteLine("====================================");
+            
+            // Use the new Liquidity class
+            string message = BTCPayServer.Lightning.Liquidity.HelloWorld();
+            Console.WriteLine("Message from Liquidity class: " + message);
             
             // Also log via the logger
             _logger.LogInformation("LSPS1 component loaded via logger!");
+            _logger.LogInformation(message);
             
             return View(new LSPS1ViewModel());
         }

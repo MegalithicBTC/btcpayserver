@@ -8,6 +8,7 @@ PORT=14142
 PROFILE="Bitcoin-Mainnet-Local-Dev"
 
 # relative paths (from repo root)
+LIGHTNING_REL_PATH="BTCPayServer.Lightning"
 PLUGIN_REL_PATH="btcpayserver-plugin-template/BTCPayServer.Plugins.LSPS1"
 BTCPAY_CSPROJ_REL_PATH="btcpayserver/BTCPayServer/BTCPayServer.csproj"
 NBX_COOKIE_REL_PATH="btcpayserver-docker/data/nbxplorer_datadir/Main/.cookie"
@@ -26,11 +27,18 @@ if lsof -i :"${PORT}" -sTCP:LISTEN -t >/dev/null 2>&1 \
 fi
 
 ###############################################################################
-# 1.  Resolve repo paths & build LSPS1 plugin
+# 1.  Resolve repo paths & build libraries
 ###############################################################################
 script_dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 repo_root="$(readlink -f "${script_dir}/..")"
 
+# Build Lightning library first
+echo "🔨  Building Lightning library …"
+pushd "${repo_root}/${LIGHTNING_REL_PATH}" >/dev/null
+dotnet build -c Debug
+popd >/dev/null
+
+# Then build the LSPS1 plugin
 echo "🔨  Building LSPS1 plugin …"
 pushd "${repo_root}/${PLUGIN_REL_PATH}" >/dev/null
 dotnet build -c Debug
