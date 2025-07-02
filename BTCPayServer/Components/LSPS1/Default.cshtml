@@ -2,7 +2,7 @@
 @using Newtonsoft.Json.Linq
 @using BTCPayServer.Lightning
 
-<div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
+
 
 
 @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
@@ -22,7 +22,7 @@
 
     var activeInbound = (long)(report["Active_Inbound_Satoshis"] ?? 0);
     var pendingInbound = (long)(report["Pending_Inbound_Satoshis"] ?? 0);
-
+    <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="h4 mb-0">BTC Lightning Inbound Payment Capacity</span>
@@ -73,6 +73,7 @@
                 }
             </div>
         </div>
+    </div>
 }
 else
 {
