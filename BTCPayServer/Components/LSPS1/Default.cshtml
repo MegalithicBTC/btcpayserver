@@ -1,27 +1,18 @@
 @model BTCPayServer.Components.LSPS1.LSPS1ViewModel
-@using Newtonsoft.Json.Linq
 @using BTCPayServer.Lightning
-
-
-
 
 @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
 {
-    var report = JObject.FromObject(Model.LiquidityReport);
-    var statusValue = report["Liquidity_Status"].ToString();
+    var status = Model.LiquidityReport.Liquidity_Status.ToString();
+    var activeInboundSats = Model.LiquidityReport.Active_Inbound_Satoshis.MilliSatoshi / 1000;
+    var pendingInboundSats = Model.LiquidityReport.Pending_Inbound_Satoshis.MilliSatoshi / 1000;
 
-
-    // Convert integer status to string if needed
-    var status = statusValue switch
+    Func<long, string> formatAmount = sats =>
     {
-        "2" => "Bad",
-        "1" => "Pending",
-        "0" => "Good",
-        _ => statusValue // Keep original value if not a known integer
+        var btc = (decimal)sats / 100_000_000m;
+        return $"{sats:N0} sats ({btc.ToString("0.00000000")} BTC)";
     };
 
-    var activeInbound = (long)(report["Active_Inbound_Satoshis"] ?? 0);
-    var pendingInbound = (long)(report["Pending_Inbound_Satoshis"] ?? 0);
     <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -40,37 +31,35 @@
             </div>
 
             <div class="card-body">
-                @if (activeInbound > 0 || pendingInbound > 0)
+                @if (status == "Good")
                 {
-                    <div class="row">
-                        @if (activeInbound > 0)
-                        {
-                            <div class="col-md-6 mb-3">
-                                <h5>Active Inbound Capacity</h5>
-                                <p class="lead mb-0">@activeInbound&nbsp;sats</p>
-                            </div>
-                        }
-                        @if (pendingInbound > 0)
-                        {
-                            <div class="col-md-6 mb-3">
-                                <h5>Pending Inbound Capacity</h5>
-                                <p class="lead mb-0">@pendingInbound&nbsp;sats</p>
-                            </div>
-                        }
-                    </div>
+                    <p class="card-text">
+                        <strong>Active Inbound Capacity:</strong>
+                        <span class="text-success">@formatAmount(activeInboundSats)</span>
+                    </p>
                 }
-                else
+                else if (status == "Pending")
                 {
-                    <div class="text-center">
-                        <h5 class="alert-heading" text-translate="true">Warning: To receive Lightning payments, you need a
-                            channel with inbound capacity</h5>
-                        <p>Get a channel from a Lightning Service Provider to start receiving payments.</p>
-                        <a href="/server/plugins?search=lsps-1" class="btn btn-primary btn-lg mt-2">
-
-                            Get Inbound Capacity
-                        </a>
-                    </div>
+                    <p class="card-text">
+                        <strong>Pending Inbound Capacity:</strong>
+                        <span class="text-warning">@formatAmount(pendingInboundSats)</span>
+                    </p>
+                    <p class="card-text small text-muted">
+                        Your node has pending channels that, once confirmed, will provide sufficient inbound capacity.
+                    </p>
                 }
+                else if (status == "Bad")
+                {
+                    <p class="card-text">
+                        <strong>Active Inbound Capacity:</strong>
+                        <span class="text-danger">@formatAmount(activeInboundSats)</span>
+                    </p>
+                    <p class="card-text small text-muted">
+                        Your node has insufficient inbound capacity. Consider acquiring a channel from a Lightning Service
+                        Provider.
+                    </p>
+                }
+                <p class="card-text small text-muted">@Model.Message</p>
             </div>
         </div>
     </div>

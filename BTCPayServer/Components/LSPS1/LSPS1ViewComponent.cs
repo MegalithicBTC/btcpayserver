@@ -46,7 +46,7 @@ namespace BTCPayServer.Components.LSPS1
         public async Task<IViewComponentResult> InvokeAsync(string storeId)
         {
             _logger.LogInformation("[LSPS1View] Component invoked for storeId: {StoreId}", storeId);
-            
+
             var viewModel = new LSPS1ViewModel
             {
                 HasLiquidityReport = false
@@ -80,18 +80,18 @@ namespace BTCPayServer.Components.LSPS1
 
                 _logger.LogInformation("[LSPS1View] Calling Liquidity.CheckAsync...");
                 var liquidityReport = await Liquidity.CheckAsync(client, _logger);
-                
+
                 if (liquidityReport != null)
                 {
                     _logger.LogInformation("[LSPS1View] Liquidity report received. Status: {Status}", liquidityReport.Liquidity_Status);
                     viewModel.HasLiquidityReport = true;
                     viewModel.LiquidityReport = liquidityReport;
-                    viewModel.Message = "Liquidity information is available for your CLightning node";
+                    viewModel.Message = "Liquidity information is available for your Core Lightning node";
                 }
                 else
                 {
                     _logger.LogInformation("[LSPS1View] No liquidity report was generated. This may be because the node is not a CLightning node or an error occurred.");
-                    viewModel.Message = "Liquidity information is only available for CLightning nodes";
+                    viewModel.Message = "Liquidity information is only available for Core Lightning nodes";
                 }
             }
             catch (Exception ex)
@@ -145,11 +145,11 @@ namespace BTCPayServer.Components.LSPS1
                             _logger.LogInformation("[LSPS1View.GetClient] Found and returning internal lightning node client.");
                             return internalClient;
                         }
-                        
+
                         _logger.LogError("[LSPS1View.GetClient] No internal lightning node found for {CryptoCode}", network.CryptoCode);
                         return null;
                     }
-                    
+
                     _logger.LogInformation("[LSPS1View.GetClient] Creating Lightning client with connection string via factory...");
                     var factoryClient = _lightningClientFactory.Create(paymentMethodDetails.ConnectionString, network);
                     _logger.LogInformation("[LSPS1View.GetClient] Successfully created client from factory.");
