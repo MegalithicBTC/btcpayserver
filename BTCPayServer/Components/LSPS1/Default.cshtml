@@ -3,62 +3,75 @@
 @using BTCPayServer.Lightning
 
 <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
-    <h3 class="mb-3">Lightning Node Liquidity Information</h3>
-    
-    @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
+
+
+@if (Model.HasLiquidityReport && Model.LiquidityReport != null)
+{
+    var report = JObject.FromObject(Model.LiquidityReport);
+    var statusValue = report["Liquidity_Status"].ToString();
+
+
+    // Convert integer status to string if needed
+    var status = statusValue switch
     {
-        var report = JObject.FromObject(Model.LiquidityReport);
-        var status = report["Liquidity_Status"].ToString();
-        var activeInbound = report["Active_Inbound_Satoshis"];
-        var pendingInbound = report["Pending_Inbound_Satoshis"];
-        
+        "2" => "Bad",
+        "1" => "Pending",
+        "0" => "Good",
+        _ => statusValue // Keep original value if not a known integer
+    };
+
+    var activeInbound = (long)(report["Active_Inbound_Satoshis"] ?? 0);
+    var pendingInbound = (long)(report["Pending_Inbound_Satoshis"] ?? 0);
+
         <div class="card">
-            <div class="card-header">
-                <h4>Node Liquidity Status: 
-                    @{
-                        string statusClass = status switch
-                        {
-                            "Good" => "text-success",
-                            "Pending" => "text-warning",
-                            "Bad" => "text-danger",
-                            _ => "text-secondary"
-                        };
-                    }
-                    <span class="@statusClass">@status</span>
-                </h4>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="h4 mb-0">BTC Lightning Inbound Payment Capacity</span>
+
+                @{
+                    var badgeClass = status switch
+                    {
+                        "Good" => "bg-success",
+                        "Pending" => "bg-warning text-dark",
+                        "Bad" => "bg-danger",
+                        _ => "bg-secondary"
+                    };
+                }
+                <span class="badge @badgeClass px-3 py-2">@status</span>
             </div>
+
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <h5>Active Inbound Capacity</h5>
-                            <p class="lead">@activeInbound sats</p>
-                        </div>
+                @if (activeInbound > 0 || pendingInbound > 0)
+                {
+                    <div class="row">
+                        @if (activeInbound > 0)
+                        {
+                            <div class="col-md-6 mb-3">
+                                <h5>Active Inbound Capacity</h5>
+                                <p class="lead mb-0">@activeInbound&nbsp;sats</p>
+                            </div>
+                        }
+                        @if (pendingInbound > 0)
+                        {
+                            <div class="col-md-6 mb-3">
+                                <h5>Pending Inbound Capacity</h5>
+                                <p class="lead mb-0">@pendingInbound&nbsp;sats</p>
+                            </div>
+                        }
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <h5>Pending Inbound Capacity</h5>
-                            <p class="lead">@pendingInbound sats</p>
-                        </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <h5 class="alert-heading" text-translate="true">Warning: To receive Lightning payments, you need a
+                            channel with inbound capacity</h5>
+                        <p>Get a channel from a Lightning Service Provider to start receiving payments.</p>
+                        <a href="/server/plugins?search=lsps-1" class="btn btn-primary btn-lg mt-2">Get Inbound Capacity</a>
                     </div>
-                </div>
-                <div class="mt-3">
-                    <small class="text-muted">
-                        Threshold for good liquidity: 250,000 sats
-                    </small>
-                </div>
+                }
             </div>
         </div>
-    }
-    else
-    {
-        <div class="alert alert-info">
-            <p>@Model.Message</p>
-        </div>
-    }
-    
-    <div class="d-flex align-items-center mt-3">
-        <span class="badge bg-primary me-2">Beta</span>
-        <span>LSPS1 Liquidity Component</span>
-    </div>
-</div>
+}
+else
+{
+
+}
