@@ -108,6 +108,9 @@
 	  <ProjectReference Include="..\BTCPayServer.Data\BTCPayServer.Data.csproj" />
 	  <ProjectReference Include="..\BTCPayServer.Rating\BTCPayServer.Rating.csproj" />
 	  <ProjectReference Include="..\BTCPayServer.Common\BTCPayServer.Common.csproj" />
+     <!-- <ProjectReference Include="..\..\BTCPayServer.Lightning\src\BTCPayServer.Lightning.Common\BTCPayServer.Lightning.Common.csproj" /> -->
+          <ProjectReference Include="..\..\BTCPayServer.Lightning\src\BTCPayServer.Lightning.All\BTCPayServer.Lightning.All.csproj" />
+
     <!-- i dont need this here because it comes from appsettings.dev.json -->
   <!-- <ProjectReference Include="..\\..\\btcpayserver-plugin-template\\BTCPayServer.Plugins.LSPS1\\BTCPayServer.Plugins.LSPS1.csproj" /> -->
 
