@@ -1,6 +1,4 @@
 #nullable enable
-using System;
-using BTCPayServer.Lightning;
 
 namespace BTCPayServer.Components.LSPS1
 {
