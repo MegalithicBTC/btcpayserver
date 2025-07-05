@@ -1,5 +1,27 @@
 {
   "profiles": {
+       "Bitcoin-Mainnet-Local-Dev": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:14142/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BTCPAY_NETWORK": "mainnet",
+        "BTCPAY_CHAINS": "btc",
+        "BTCPAY_LAUNCHSETTINGS": "true",
+        "BTCPAY_BIND": "0.0.0.0:14142",
+        "BTCPAY_VERBOSE": "true",
+        "BTCPAY_BTCEXPLORERURL": "http://localhost:32838/",
+        "BTCPAY_BTCLIGHTNING": "type=clightning;server=unix:///mypool/workspace/btcpay/btcpayserver-docker/data/clightning_bitcoin_datadir/lightning-rpc;version=3.8",
+        "BTCPAY_POSTGRES": "User ID=postgres;Include Error Detail=true;Host=localhost;Port=5432;Database=btcpayservermainnet",
+        "BTCPAY_EXPLORERPOSTGRES": "User ID=postgres;Include Error Detail=true;Host=localhost;Port=5432;Database=nbxplorermainnet",
+        "BTCPAY_ALLOW-ADMIN-REGISTRATION": "true",
+        "BTCPAY_DISABLE-REGISTRATION": "false",
+        "BTCPAY_DEBUGLOG": "debug.log",
+        "BTCPAY_DOCKERDEPLOYMENT": "true",
+        "BTCPAY_PLUGINDIR": "../btcpayserver-plugin-template/BTCPayServer.Plugins.LSPS1/bin/Debug/net8.0"
+      },
+    },
     "Bitcoin": {
       "commandName": "Project",
       "launchBrowser": true,
