@@ -4,14 +4,8 @@
 @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
 {
     var status = Model.LiquidityReport.LiquidityStatus.ToString();
-    var activeInboundSats = Model.LiquidityReport.ActiveInboundSatoshis.ToUnit(LightMoneyUnit.Satoshi);
-    var pendingInboundSats = Model.LiquidityReport.PendingInboundSatoshis.ToUnit(LightMoneyUnit.Satoshi);
-
-    Func<decimal, string> formatAmount = sats =>
-    {
-        var btc = sats / 100_000_000m;
-        return $"{sats:N0} sats ({btc:0.00000000} BTC)";
-    };
+    var activeInbound = Model.LiquidityReport.ActiveInboundSatoshis;
+    var pendingInbound = Model.LiquidityReport.PendingInboundSatoshis;
 
     <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
         <div class="card">
@@ -36,14 +30,14 @@
                 {
                     <p class="card-text">
                         <strong>Active Inbound Capacity:</strong>
-                        <span class="text-success">@formatAmount(activeInboundSats)</span>
+                        <span class="text-success">@activeInbound</span>
                     </p>
                 }
                 else if (status == "Pending")
                 {
                     <p class="card-text">
                         <strong>Pending Inbound Capacity:</strong>
-                        <span class="text-warning">@formatAmount(pendingInboundSats)</span>
+                        <span class="text-warning">@pendingInbound</span>
                     </p>
                     <p class="card-text small text-muted">
                         Your node has pending channels that, once confirmed, will provide sufficient inbound capacity.

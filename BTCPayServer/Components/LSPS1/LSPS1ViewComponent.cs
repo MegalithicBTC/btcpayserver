@@ -79,9 +79,7 @@ namespace BTCPayServer.Components.LSPS1
                 _logger.LogInformation("[LSPS1View] Successfully retrieved Lightning client of type: {ClientType}", client.GetType().Name);
 
                 _logger.LogInformation("[LSPS1View] Calling Liquidity.CheckAsync...");
-                var liquidityReport = await Liquidity.CheckAsync(client, _logger);
-
-
+                var liquidityReport = await Liquidity.CheckAsync(client);
 
                 if (liquidityReport != null)
                 {
