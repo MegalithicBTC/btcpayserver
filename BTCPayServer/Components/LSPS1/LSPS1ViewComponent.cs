@@ -81,9 +81,11 @@ namespace BTCPayServer.Components.LSPS1
                 _logger.LogInformation("[LSPS1View] Calling Liquidity.CheckAsync...");
                 var liquidityReport = await Liquidity.CheckAsync(client, _logger);
 
+
+
                 if (liquidityReport != null)
                 {
-                    _logger.LogInformation("[LSPS1View] Liquidity report received. Status: {Status}", liquidityReport.Liquidity_Status);
+                    _logger.LogInformation("[LSPS1View] Liquidity report received. Status: {Status}", liquidityReport.LiquidityStatus);
                     viewModel.HasLiquidityReport = true;
                     viewModel.LiquidityReport = liquidityReport;
                     viewModel.Message = "Liquidity information is available for your Core Lightning node";

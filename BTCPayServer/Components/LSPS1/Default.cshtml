@@ -3,13 +3,13 @@
 
 @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
 {
-    var status = Model.LiquidityReport.Liquidity_Status.ToString();
-    var activeInboundSats = Model.LiquidityReport.Active_Inbound_Satoshis.MilliSatoshi / 1000;
-    var pendingInboundSats = Model.LiquidityReport.Pending_Inbound_Satoshis.MilliSatoshi / 1000;
+    var status = Model.LiquidityReport.LiquidityStatus.ToString();
+    var activeInboundSats = Model.LiquidityReport.ActiveInboundSatoshis.ToUnit(LightMoneyUnit.Satoshi);
+    var pendingInboundSats = Model.LiquidityReport.PendingInboundSatoshis.ToUnit(LightMoneyUnit.Satoshi);
 
-    Func<long, string> formatAmount = sats =>
+    Func<decimal, string> formatAmount = sats =>
     {
-        var btc = (decimal)sats / 100_000_000m;
+        var btc = sats / 100_000_000m;
         return $"{sats:N0} sats ({btc:0.00000000} BTC)";
     };
 
