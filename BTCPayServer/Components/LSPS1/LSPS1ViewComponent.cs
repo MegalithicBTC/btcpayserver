@@ -18,6 +18,11 @@ using NBitcoin;
 
 namespace BTCPayServer.Components.LSPS1
 {
+
+    /// <summary>
+    /// ViewComponent that displays Lightning Network inbound liquidity information.
+    /// Currently only supports Core Lightning (CLN) nodes.
+    /// </summary>
     public class LSPS1ViewComponent : ViewComponent
     {
         private readonly ILogger<LSPS1ViewComponent> _logger;
