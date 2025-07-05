@@ -10,7 +10,7 @@
     Func<long, string> formatAmount = sats =>
     {
         var btc = (decimal)sats / 100_000_000m;
-        return $"{sats:N0} sats ({btc.ToString("0.00000000")} BTC)";
+        return $"{sats:N0} sats ({btc:0.00000000} BTC)";
     };
 
     <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
@@ -30,7 +30,8 @@
                 <span class="badge @badgeClass px-3 py-2">@status</span>
             </div>
 
-            <div class="card-body">
+            <!-- Center all body content -->
+            <div class="card-body text-center">
                 @if (status == "Good")
                 {
                     <p class="card-text">
@@ -50,21 +51,16 @@
                 }
                 else if (status == "Bad")
                 {
+                    <p class="card-text fs-5 fw-bold">
+                        Warning: To receive Lightning payments you need a channel with inbound capacity
+                    </p>
                     <p class="card-text">
-                        <strong>Active Inbound Capacity:</strong>
-                        <span class="text-danger">@formatAmount(activeInboundSats)</span>
+                        Get a channel from a Lightning Service Provider to start receiving payments.
                     </p>
-                    <p class="card-text small text-muted">
-                        Your node has insufficient inbound capacity. Consider acquiring a channel from a Lightning Service
-                        Provider.
-                    </p>
+                    <a href="~/server/plugins?search=lsps1" class="btn btn-primary mt-2 mb-2">Get Inbound Capacity</a>
                 }
-                <p class="card-text small text-muted">@Model.Message</p>
+                <p class="card-text small mt-2 text-muted">@Model.Message</p>
             </div>
         </div>
     </div>
-}
-else
-{
-
 }
