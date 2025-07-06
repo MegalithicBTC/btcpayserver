@@ -1,4 +1,4 @@
-@model BTCPayServer.Components.LSPS1.LSPS1ViewModel
+@model BTCPayServer.Components.Liquidity.LiquidityViewModel
 @using BTCPayServer.Lightning
 
 @if (Model.HasLiquidityReport && Model.LiquidityReport != null)
@@ -7,7 +7,7 @@
     var activeInbound = Model.LiquidityReport.ActiveInboundSatoshis;
     var pendingInbound = Model.LiquidityReport.PendingInboundSatoshis;
 
-    <div class="mt-4 mb-4 p-3 bg-light rounded" id="lsps1-component">
+    <div class="mt-4 mb-4 p-3 bg-light rounded" id="liquidity-component">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="h4 mb-0">BTC Lightning Inbound Payment Capacity</span>

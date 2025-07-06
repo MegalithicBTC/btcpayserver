@@ -1,8 +1,8 @@
 #nullable enable
 
-namespace BTCPayServer.Components.LSPS1
+namespace BTCPayServer.Components.Liquidity
 {
-    public class LSPS1ViewModel
+    public class LiquidityViewModel
     {
         public bool HasLiquidityReport { get; set; }
         public LiquidityReport? LiquidityReport { get; set; }

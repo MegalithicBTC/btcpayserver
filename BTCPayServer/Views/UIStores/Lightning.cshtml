@@ -4,7 +4,8 @@
 @inject LightningClientFactoryService LightningClientFactoryService
 @inject BTCPayNetworkProvider NetworkProvider
 @{
-    ViewData.SetActivePage(StoreNavPages.Lightning, StringLocalizer["{0} Lightning", Model.CryptoCode], $"{Context.GetStoreData().Id}-{Model.CryptoCode}");
+    ViewData.SetActivePage(StoreNavPages.Lightning, StringLocalizer["{0} Lightning", Model.CryptoCode],
+    $"{Context.GetStoreData().Id}-{Model.CryptoCode}");
 }
 
 <h2 class="mb-2 mb-lg-3">@ViewData["Title"]</h2>
@@ -18,9 +19,10 @@
             <span class="me-3" id="CustomNodeInfo">
                 @try
                 {
-                    var client = LightningClientFactoryService.Create(Model.ConnectionString, NetworkProvider.GetNetwork<BTCPayNetwork>(Model.CryptoCode));
-					<span>@client.GetDisplayName(Model.ConnectionString)</span>
-					var uri = client.GetServerUri(Model.ConnectionString);
+                    var client = LightningClientFactoryService.Create(Model.ConnectionString,
+                    NetworkProvider.GetNetwork<BTCPayNetwork>(Model.CryptoCode));
+                    <span>@client.GetDisplayName(Model.ConnectionString)</span>
+                    var uri = client.GetServerUri(Model.ConnectionString);
                     if (uri is not null)
                     {
                         <span>(@uri.Host)</span>
@@ -33,18 +35,13 @@
             </span>
         }
 
-        <a
-           asp-controller="UIPublicLightningNodeInfo"
-           asp-action="ShowLightningNodeInfo"
-           asp-route-cryptoCode="@Model.CryptoCode"
-           asp-route-storeId="@Model.StoreId"
-           target="_blank"
-           id="PublicNodeInfo"
-           text-translate="true">
+        <a asp-controller="UIPublicLightningNodeInfo" asp-action="ShowLightningNodeInfo"
+            asp-route-cryptoCode="@Model.CryptoCode" asp-route-storeId="@Model.StoreId" target="_blank"
+            id="PublicNodeInfo" text-translate="true">
             Public Node Info
         </a>
     </div>
-        <vc:lsps1 store-id="@Model.StoreId" />
+    <vc:liquidity store-id="@Model.StoreId" />
     @if (Model.Services != null && Model.Services.Any())
     {
         <div permission="@Policies.CanModifyServerSettings" class="mt-5">
@@ -55,22 +52,27 @@
                     @if (!string.IsNullOrEmpty(service.Error))
                     {
                         <div class="service" id="@($"Service-{service.ServiceName}")">
-                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true" alt="@service.DisplayName" />
+                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true"
+                                alt="@service.DisplayName" />
                             <h6>@service.DisplayName</h6>
                             <small class="d-block mt-3 lh-sm fw-semibold text-danger">@service.Error</small>
                         </div>
                     }
                     else if (string.IsNullOrEmpty(service.Link))
                     {
-                        <a asp-controller="UIServer" asp-action="Service" asp-route-serviceName="@service.ServiceName" asp-route-cryptoCode="@service.CryptoCode" class="service" id="@($"Service-{service.ServiceName}")">
-                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true" alt="@service.DisplayName" />
+                        <a asp-controller="UIServer" asp-action="Service" asp-route-serviceName="@service.ServiceName"
+                            asp-route-cryptoCode="@service.CryptoCode" class="service" id="@($"Service-{service.ServiceName}")">
+                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true"
+                                alt="@service.DisplayName" />
                             <h6>@service.DisplayName</h6>
                         </a>
                     }
                     else
                     {
-                        <a href="@service.Link" target="_blank" rel="noreferrer noopener" class="service" id="@($"Service-{service.ServiceName}")">
-                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true" alt="@service.DisplayName" />
+                        <a href="@service.Link" target="_blank" rel="noreferrer noopener" class="service"
+                            id="@($"Service-{service.ServiceName}")">
+                            <img src="@($"~/img/{service.Type.ToLower()}.png")" asp-append-version="true"
+                                alt="@service.DisplayName" />
                             <h6>@service.DisplayName</h6>
                         </a>
                     }

@@ -8,7 +8,7 @@ using BTCPayServer.Lightning.CLightning;
 using BTCPayServer.Lightning.JsonConverters;
 using Newtonsoft.Json;
 
-namespace BTCPayServer.Components.LSPS1
+namespace BTCPayServer.Components.Liquidity
 {
     /// <summary>
     /// Overall inbound-liquidity health.

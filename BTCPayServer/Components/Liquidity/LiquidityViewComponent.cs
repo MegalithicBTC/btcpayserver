@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ using Microsoft.Extensions.Options;
 using NBitcoin;
 
 
-namespace BTCPayServer.Components.LSPS1
+namespace BTCPayServer.Components.Liquidity
 {
     /// <summary>
     /// ViewComponent that displays Lightning Network inbound liquidity information.
     /// Currently only supports Core Lightning (CLN) nodes.
     /// </summary>
-    public class LSPS1ViewComponent : ViewComponent
+    public class LiquidityViewComponent : ViewComponent
     {
         private readonly StoreRepository _storeRepository;
         private readonly LightningClientFactoryService _lightningClientFactory;
@@ -31,7 +32,7 @@ namespace BTCPayServer.Components.LSPS1
         private readonly PaymentMethodHandlerDictionary _handlers;
         private readonly IOptions<LightningNetworkOptions> _lightningNetworkOptions;
 
-        public LSPS1ViewComponent(
+        public LiquidityViewComponent(
             StoreRepository storeRepository,
             LightningClientFactoryService lightningClientFactory,
             BTCPayNetworkProvider networkProvider,
@@ -47,7 +48,7 @@ namespace BTCPayServer.Components.LSPS1
 
         public async Task<IViewComponentResult> InvokeAsync(string storeId)
         {
-            var viewModel = new LSPS1ViewModel();
+            var viewModel = new LiquidityViewModel();
             if (string.IsNullOrEmpty(storeId))
             {
                 return View(viewModel);
